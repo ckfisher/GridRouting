@@ -1,3 +1,0 @@
-#!/bin/sh
-./routing_daily_output_worked/route ./tmp/ctlfile_12.txt ./setup_input_files/input_basin_12.bin ./setup_vic_input_files/vic_input_basin_12.bin
-
