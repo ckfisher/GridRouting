@@ -1,0 +1,5 @@
+/Users/tjtroy/Research/FloodModeling/VIC_US/orig_with_copies/
+../results/output_basin_1_2004.txt
+2004 04 01 
+2004 05 31 
+0.125

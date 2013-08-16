@@ -1,0 +1,36 @@
+# Makefile for calc_monthly_stats program
+# Mon Mar 25 12:16:47 EST 2002
+# Justin Sheffield <justin@princeton.edu>
+
+CC = cc
+CFLAGS_BASE		= -I. -I/Users/tjtroy/Research/libraries/utils -I/Users/tjtroy/Research/libraries/include
+CFLAGS_irix  		= $(CFLAGS_BASE) -n32 -fullwarn
+CFLAGS_sunos  		= $(CFLAGS_BASE) -O  
+CFLAGS_linux  		= $(CFLAGS_BASE) -g -Wall -Wno-unused
+#CFLAGS_linuxalpha  	= $(CFLAGS_BASE) -O3 -Wall -Wno-unused -mieee
+#CFLAGS_linuxalpha  	= $(CFLAGS_BASE) -g -Wall -Wno-unused
+CFLAGS 			= $(CFLAGS_linux)
+LIBRARY = -L/Users/tjtroy/Research/libraries/utils -lutils_linux64 -lm
+
+HDRS = 	route.h
+
+OBJS =  route.o route_auxiliary.o route_flow.o read_vic_runoff.o
+
+SRCS = $(OBJS:%.o=%.c) 
+
+EXE = route
+
+all:
+	make model
+	
+default:
+	make model
+
+clean:
+	/bin/rm -f $(EXE) *.o core log *~
+	
+	
+model: $(OBJS)
+	$(CC) -o $(EXE) $(OBJS) $(CFLAGS) $(LIBRARY)
+
+$(OBJS): $(HDRS)

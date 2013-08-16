@@ -1,0 +1,5 @@
+/crunch/c1/tjtroy/VIC_Maurer/vic_processed/
+./results/output_basin_15.txt
+1949 01 01 
+1999 12 31
+0.125

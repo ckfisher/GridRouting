@@ -1,0 +1,5 @@
+/Users/tjtroy/Research/FloodModeling/VIC_US/orig_with_copies/
+../results/output_basin_BASIN_YEAR.txt
+YEAR 04 01 
+YEAR 05 31 
+0.125

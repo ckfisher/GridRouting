@@ -1,0 +1,12 @@
+DSET ^results_%y4%m1%d1.nc
+TITLE Gridded Discharge - Daily
+OPTIONS template
+DTYPE netcdf
+UNDEF -999000000
+XDEF 32 LINEAR -124 0.125
+YDEF 24 LINEAR 40 0.125
+ZDEF 1 LINEAR 1 1
+TDEF 1096 LINEAR 0Z01JAN2007 1DY
+VARS 1
+discharge 0 t,y,x Discharge (m3s)
+ENDVARS
