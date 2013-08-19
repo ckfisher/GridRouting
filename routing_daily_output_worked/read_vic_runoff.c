@@ -68,8 +68,8 @@ void read_vic_runoff(float ***vic_runoff, int **vic_ts, float vic_resn, int endt
 			  if ((retval = nc_inq_varid(ncid, "lon", &lon_varid)))
 				ERR(retval);
 			  /* Read the coordinate variable data. */
-		      if ((retval = nc_get_var_float(ncid, lat_varid, &lats_in[0])))
-		      	ERR(retval);
+		     	 if ((retval = nc_get_var_float(ncid, lat_varid, &lats_in[0])))
+		      		ERR(retval);
 			  if ((retval = nc_get_var_float(ncid, lon_varid, &lons_in[0])))
 			  	ERR(retval);
 			  //printf("%f %f\n",lats_in[0], lats_in[112]);

@@ -277,6 +277,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 				vic_ts[vic_current][0]=Q_ts_old[0];
 				vic_ts[vic_current][1]=Q_ts_old[1]; 
 				vic_ts[vic_current][2]=Q_ts_old[2];
+				printf("%d",vic_current);
 				vic_current++;
 		}
 

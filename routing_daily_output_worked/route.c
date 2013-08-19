@@ -97,12 +97,12 @@ int main(int argc, char *argv[]) {
 	
 	// Read in input data
 	nheadwaters = read_network_data(ll_limits, lat, lon, dx, nlinks, alpha, beta, back_index, fname_input);
-	printf("network data read\n");
+	printf("Network data read\n");
 	
 	// Read in vic input data
 	read_vic_network_data(vic_factor, vic_lat, vic_lon, ngrid, fname_vic_input);
 	//printf("557 %.4f %.4f %.4f\n", vic_lat[557], vic_lon[557], vic_factor[557]);
-	printf("vic network info read\n");
+	printf("Vic network info read\n");
 	
 	// Calculate endtime - number of seconds of the simulation
 	endtime = calculate_nsecs(startdate, enddate);

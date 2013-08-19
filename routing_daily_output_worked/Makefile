@@ -1,11 +1,10 @@
-# Makefile for calc_monthly_stats program
-# Mon Mar 25 12:16:47 EST 2002
-# Justin Sheffield <justin@princeton.edu>
 CC = gcc
-CFLAGS_linux  		= $(CFLAGS_BASE) -I/usr/local/Cellar/netcdf/4.2.1.1/include -g -Wall -Wno-unused
-CFLAGS_osx = $(CFLAGS_BASE) -g -Wall -Wno-unused -I/usr/local/Cellar/netcdf/4.2.1.1/include
-CFLAGS 			= $(CFLAGS_osx)
-LIBRARY = -lm -L/usr/local/Cellar/netcdf/4.2.1.1/lib -lnetcdf
+CFLAGS_linux  		= -I. -g -Wall -Wno-unused
+CFLAGS_osx = -g -Wall -Wno-unused -I/usr/local/Cellar/netcdf/4.2.1.1/include
+CFLAGS 			= $(CFLAGS_linux)
+#LIBRARY = -lm -L/usr/local/Cellar/netcdf/4.2.1.1/lib -lnetcdf
+LIBRARY = -lm -L/usr/lib64/libnetcdf.so.7 -lnetcdf
+ 
 
 HDRS = 	route.h
 
