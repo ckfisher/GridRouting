@@ -3,7 +3,7 @@
 #include <math.h>
 #include <netcdf.h>
 #include "route.h"
-
+#include <omp.h>
 
 int route_flow(int *startdate, int endtime, float *alpha, float *beta, 
 				float ***runoff, float *dx, int ngrid, int nheadwaters, float *dist, float *nlinks, float **back_index, 
@@ -56,7 +56,6 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		Q[n] = 5;
 		v[n] = 2;
 	}
-
 	// Put a check that not using missing VIC data 
 	for (n=0; n<ngrid; n++) {
 		row = vic_row[n];
@@ -67,7 +66,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		}
 	}
 		
-	
+
 	// Set up array for time - year, month, day, second
 	Q_ts_old[0] = startdate[0];
 	Q_ts_old[1] = startdate[1];
@@ -82,7 +81,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		Q_mean_old[n] = 0;
 	}
 	
-	
+
 	// TJT: I forced an hour less because for some reason was looping through till the next day after when it was supposed to end
 	dt=0;
 	dt_total = 0;
@@ -106,18 +105,19 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		for (n=nheadwaters; n<=ngrid; n++) {
 			if (nlinks[n]==1) {
 				c_k = 5. / 3. * v_old[n];
-				if ( (dx[n] / c_k) < dt) {
+				if ( (dx[n] / c_k) < dt && (dx[n]/c_k)>=1) {
 					dt = dx[n] / c_k;
 				}
 			}
 		}
 		dt = floor(dt);
-		
+
 		// Keep track of time
 		time = time + (int)dt;
 		if (time>endtime) {
 			break;
 		}
+
 	
 		// Handle the time series
 		// See if we are still the same day
@@ -160,7 +160,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 			dayflag = 0;
 		}
 		//printf("Flag %d %.0f\n", dayflag, dt_total);
-		
+
 		// Initialize some stuff if dayflag==0
 		if (dayflag==0) {
 			for (n=0; n<ngrid; n++) {
@@ -179,7 +179,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		// Find the vic index for where we are - this assumes daily runoff
 		vic_old = vic_current;
 		vic_tidx = vic_old;
- 
+
 /*		while (1){
 			year=(int)Q_ts[0];
 			month=(int)Q_ts[1];
@@ -198,9 +198,10 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 			break;
 		} */
 
-	
+		#pragma omp parallel for private(n,row,col,back,term1,term2,term3,denom) num_threads(8)	
 		for(n=0; n<ngrid; n++) {
 		
+			
 			row = vic_row[n];
 			col = vic_col[n];
 			
@@ -263,7 +264,6 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 				
 				flow_out[row][col][vic_current] = Q_mean_old[n];				
 						
-				dt_total = dt;
 				Q_mean[n] = Q[n] * dt;
 			}
 			else {
@@ -277,7 +277,8 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 				vic_ts[vic_current][0]=Q_ts_old[0];
 				vic_ts[vic_current][1]=Q_ts_old[1]; 
 				vic_ts[vic_current][2]=Q_ts_old[2];
-				printf("%d",vic_current);
+				dt_total = dt;
+				printf("%d\n",vic_current);
 				vic_current++;
 		}
 

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS_linux  		= -I. -g -Wall -Wno-unused
+CFLAGS_linux  		= -fopenmp -I. -g -Wall -Wno-unused
 CFLAGS_osx = -g -Wall -Wno-unused -I/usr/local/Cellar/netcdf/4.2.1.1/include
 CFLAGS 			= $(CFLAGS_linux)
 #LIBRARY = -lm -L/usr/local/Cellar/netcdf/4.2.1.1/lib -lnetcdf

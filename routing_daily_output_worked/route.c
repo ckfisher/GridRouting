@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <netcdf.h>
+#include <omp.h>
 #include "route.h"
 
 int main(int argc, char *argv[]) {
@@ -34,8 +35,11 @@ int main(int argc, char *argv[]) {
 	float ***vic_runoff;
 	float ***flow_out;
 	float vic_min_lat, vic_max_lat, vic_min_lon, vic_max_lon;
+	double begin;
+	double time_spent;
 
-
+	begin = omp_get_wtime();
+	
 	/* Read in arguments */	
 	if(argc!=4) {
 		printf("Bad usage!\n");
@@ -156,7 +160,9 @@ int main(int argc, char *argv[]) {
 	printf("Saving the output...\n");
 	write_flow(flow_out, nrows, ncols, ndays, vic_min_lat, vic_min_lon, vic_resn, vic_ts, out_path);
 	printf("Saving complete!\n");
-	
+
+	time_spent = (double)(omp_get_wtime()-begin)/60;
+	printf("Execution Time: %f (min)\n",time_spent);
 	return(1);
 	
 } /* end of main function */
