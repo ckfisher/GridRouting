@@ -197,8 +197,9 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		if (vic_tidx>=ndays) {
 			break;
 		} */
-
-		#pragma omp parallel for private(n,row,col,back,term1,term2,term3,denom) num_threads(8)	
+		printf("%d",ngrid);
+		getchar();
+		#pragma omp parallel for schedule(static) private(n,row,col,back,term1,term2,term3,denom) num_threads(1)	
 		for(n=0; n<ngrid; n++) {
 		
 			
