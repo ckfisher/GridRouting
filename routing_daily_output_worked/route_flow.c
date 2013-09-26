@@ -48,7 +48,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 	time = 0;
 	t=0;
 	ndays = endtime / 86400;
-	printf("ngrid %d\n", ngrid);
+	//printf("ngrid %d\n", ngrid);
 
 	
 	// TJT - need to set up for initial conditions
@@ -197,11 +197,9 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 		if (vic_tidx>=ndays) {
 			break;
 		} */
-		printf("%d",ngrid);
-		getchar();
+		//printf("%d",ngrid);
 		#pragma omp parallel for schedule(static) private(n,row,col,back,term1,term2,term3,denom) num_threads(1)	
 		for(n=0; n<ngrid; n++) {
-		
 			
 			row = vic_row[n];
 			col = vic_col[n];
@@ -279,7 +277,7 @@ int route_flow(int *startdate, int endtime, float *alpha, float *beta,
 				vic_ts[vic_current][1]=Q_ts_old[1]; 
 				vic_ts[vic_current][2]=Q_ts_old[2];
 				dt_total = dt;
-				printf("%d\n",vic_current);
+				//printf("%d\n",vic_current);
 				vic_current++;
 		}
 

@@ -40,12 +40,12 @@ for (j = 0; j < nlons; j++)
 for (k = 0; k<ndays; k++) {
 	//Create filename for daily file
 	sprintf(filename, "%s/results_%d%d%d.nc", out_path, vic_ts[k][0],vic_ts[k][1],vic_ts[k][2]);
-	printf("%s\n",filename);
+	//printf("%s\n",filename);
 	
 	/* Create the file. */
 	if ((retval = nc_create(filename, NC_CLOBBER,&ncid)))
 		ERR(retval);
-	printf("%d",1);	
+	//printf("%d",1);	
 	/* Define the dimensions. */
 	if ((retval = nc_def_dim(ncid, "lat", nlats, &lat_dimid)))
 		ERR(retval);
@@ -53,7 +53,7 @@ for (k = 0; k<ndays; k++) {
 		ERR(retval);
 	if ((retval = nc_def_dim(ncid, "time", 1, &t_dimid)))
 		ERR(retval);
-	printf("%d",2);	
+	//printf("%d",2);	
 	/* Define coordinate netCDF variables.*/
 	if ((retval = nc_def_var(ncid, "lat", NC_FLOAT, 1, &lat_dimid,&lat_varid)))
 		ERR(retval);
@@ -62,7 +62,7 @@ for (k = 0; k<ndays; k++) {
 	if ((retval = nc_def_var(ncid, "time", NC_FLOAT, 1, &t_dimid,&t_varid)))
 		ERR(retval);
 
-	printf("%d",3);	
+	//printf("%d",3);	
 	/* Define units attributes for coordinate vars. */
 	if ((retval = nc_put_att_text(ncid, lat_varid, UNITS,strlen(DEGREES_NORTH), DEGREES_NORTH)))
 		ERR(retval);
@@ -70,7 +70,7 @@ for (k = 0; k<ndays; k++) {
 		ERR(retval);
 	if ((retval = nc_put_att_text(ncid, t_varid, UNITS,strlen(time_unit), time_unit)))
 		ERR(retval);
-	printf("%d",4);	
+	//printf("%d",4);	
 	/* Define the netCDF variables. The dimids array is used to pass
 	the dimids of the dimensions of the variables.*/
 	dimids[0] = t_dimid;
@@ -79,7 +79,7 @@ for (k = 0; k<ndays; k++) {
 	ndims = 3; //2d data
 	if ((retval = nc_def_var(ncid, "discharge", NC_FLOAT, ndims,dimids, &flow_varid)))
 		ERR(retval);
-	printf("%d",5);	
+	//printf("%d",5);	
 	/* Define units attributes for vars. */
 	if ((retval = nc_put_att_text(ncid, flow_varid, UNITS,strlen(flow_units), flow_units)))
 		ERR(retval);
@@ -87,7 +87,7 @@ for (k = 0; k<ndays; k++) {
 	/* End define mode. */
 	if ((retval = nc_enddef(ncid)))
 		ERR(retval);
-	printf("%d",6);	
+	//printf("%d",6);	
 	/* Write the coordinate variable data. This will put the latitudes
 	and longitudes of our data grid into the netCDF file. */
 	if ((retval = nc_put_var_float(ncid, lat_varid, &lats[0])))
@@ -98,7 +98,7 @@ for (k = 0; k<ndays; k++) {
 	if ((retval = nc_put_var_float(ncid, t_varid, &times)))
 		ERR(retval);
 
-	printf("%d",7);	
+	//printf("%d",7);	
 	
 	for (i = 0; i < nlats; i++) {
 		for (j = 0; j < nlons; j++) {
