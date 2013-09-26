@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <netcdf.h>
+#include <time.h>
 #include "route.h"
 
 #define UNITS "units"
@@ -22,6 +23,7 @@ char filename[1024];
 int retval;
 char flow_units[] = "";
 int i, j, k;
+struct tm curr_time = {0};
 size_t start[3], count[3];
 
 float lats[nlats], lons[nlons];
@@ -29,6 +31,7 @@ float temp_flow[nlats][nlons];
 float times;
 char time_unit[1024];
 int n = sprintf(time_unit,"days since %d-%d-%d",vic_ts[0][0],vic_ts[0][1],vic_ts[0][2]);
+char buff[80] = {0};
 
 //Create arrays of lats and lons
 
@@ -39,7 +42,13 @@ for (j = 0; j < nlons; j++)
 //Cycle through days and write each day as separate netCDF file
 for (k = 0; k<ndays; k++) {
 	//Create filename for daily file
-	sprintf(filename, "%s/results_%d%d%d.nc", out_path, vic_ts[k][0],vic_ts[k][1],vic_ts[k][2]);
+	curr_time.tm_year = vic_ts[k][0]-1900;
+	curr_time.tm_mon = vic_ts[k][1]-1;
+        curr_time.tm_mday = vic_ts[k][2];
+	strftime(buff,80,"%Y%m%d",&curr_time);
+	//puts(buff);
+	
+	sprintf(filename, "%s/results_%s.nc", out_path, buff);
 	//printf("%s\n",filename);
 	
 	/* Create the file. */

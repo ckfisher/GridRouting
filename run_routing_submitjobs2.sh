@@ -3,8 +3,8 @@
 ctlfile="route.ctl"
 
 
-basin=1
-nbasin=1
+basin=6
+nbasin=10
 while [ $basin -le $nbasin ]; do
 
 	inputfile="~/setup_input_files/input_basin_${basin}.bin"
