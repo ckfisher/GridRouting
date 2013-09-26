@@ -26,8 +26,8 @@ void read_vic_runoff(float ***vic_runoff, int **vic_ts, float vic_resn, int endt
 	
 	float vic_min_lat, vic_max_lat, vic_min_lon, vic_max_lon;
 	float lat, lon;
-	int NLAT = 113;
-	int NLON = 233;
+	int NLAT = 225;
+	int NLON = 465;
 	float lats_in[NLAT], lons_in[NLON];
 	float runoff_in[NLAT][NLON]; 
 	int count = 0;
